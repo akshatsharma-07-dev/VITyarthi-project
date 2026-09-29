@@ -1,0 +1,92 @@
+questions = [
+    "Which data type is ordered, mutable, and allows duplicates?",
+    "Which collection type stores unique, unordered elements?",
+    "What list method adds an item to the very end?",
+    "What set operator or symbol is used for intersection?",
+    "What built-in function returns the total count of elements?",
+    "Which method removes all items from a list or set?",
+]
+
+answers = [
+    "list",
+    "set",
+    "append",
+    "&",
+    "len",
+    "clear",
+]
+
+while True:
+    print("\n--- QUIZ MENU ---")
+    print("1 Start quiz")
+    print("2 Add a question")
+    print("3 Show all questions")
+    print("4 Exit")
+    
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        wrong = set()
+        score = 0
+
+        for i in range(len(questions)):
+            print("\nQuestion", i + 1, "of", len(questions))
+            print(questions[i])
+            ans = input("Your answer: ").lower()
+
+            if ans == answers[i].lower():
+                print("right")
+                score = score + 1
+            else:
+                print("Wrong, answer is:", answers[i])
+                wrong.add(i)
+
+        print("\nYou scored", score, "out of", len(questions))
+
+        while len(wrong) > 0:
+            print("\nYou missed", len(wrong), "questions")
+            retry = input("wanna retry the wrong ones? (y/n): ").lower()
+
+            if retry != "y":
+                break
+
+            still_wrong = set()
+            for i in list(wrong):
+                print("\nQuestion:")
+                print(questions[i])
+                ans = input("Your answer: ").lower()
+
+                if ans == answers[i].lower():
+                    print("Corect")
+                else:
+                    print("incorrect the answer is:", answers[i])
+                    still_wrong.add(i)
+
+            wrong = still_wrong
+
+        if len(wrong) == 0:
+            print("\nall questions corect")
+
+    elif choice == "2":
+        q = input("\nEnter question: ")
+        a = input("Enter answer: ")
+
+        if q != "" and a != "":
+            questions.append(q)
+            answers.append(a)
+            print("Question added")
+        else:
+            print("Cannot be empty")
+
+    elif choice == "3":
+        print("\nAll saved questions:")
+        for i in range(len(questions)):
+            print(i + 1, questions[i], "-", answers[i])
+
+    elif choice == "4":
+        print("\nBye")
+        break
+
+    else:
+        print("Invalid choice, pick 1, 2, 3, or 4")
+        
